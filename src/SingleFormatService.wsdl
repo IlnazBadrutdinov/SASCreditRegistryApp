@@ -1,0 +1,1870 @@
+<?xml version="1.0" encoding="utf-8"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://creditregistry.ru/2010/webservice/SingleFormatService" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsaw="http://www.w3.org/2006/02/addressing/wsdl" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" name="SingleFormat" targetNamespace="http://creditregistry.ru/2010/webservice/SingleFormatService">
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://creditregistry.ru/2010/webservice/SingleFormatService">
+			<xsd:complexType name="PersonRequestData">
+				<xsd:annotation>
+					<xsd:documentation>Тип описывает данные субъекта для запроса</xsd:documentation>
+				</xsd:annotation>
+				<xsd:all>
+					<xsd:element name="applicantId" type="xsd:string" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Идентификатор аппликанта</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="lastName" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Фамилия заёмщика.
+								Данное поле является обязательным для заполнения!</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="firstName" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Имя заёмщика.
+								Данное поле является обязательным для заполнения!</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="middleName" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Отчество заёмщика.
+								Если у субъекта отсутствует отчество, следует оставить тег пустым.
+								Данное поле является обязательным для заполнения!</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="pastLastName" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Предыдущая фамилия аппликанта.
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Если банк собирает данную информацию, но данный конкретный аппликант её не менял, следует оставить тег пустым.
+								Если банк собирает данную информацию, но про данного конкретного аппликанта информация отсутствует, используется nil.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="pastFirstName" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Предыдущее имя аппликанта.
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Если банк собирает данную информацию, но данный конкретный аппликант его не менял, следует оставить тег пустым.
+								Если банк собирает данную информацию, но про данного конкретного аппликанта информация отсутствует, используется nil.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="pastMiddleName" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Предыдущее отчество аппликанта.
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Если банк собирает данную информацию, но данный конкретный аппликант его не менял, следует оставить тег пустым.
+								Если банк собирает данную информацию, но про данного конкретного аппликанта информация отсутствует, используется nil.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="spouseLastName" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Фамилия супруга(и) заёмщика.
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Поле является обязательным, если банк собирает сведения о супруге.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="spouseFirstName" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Имя супруга(и) заёмщика.
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Поле является обязательным, если банк собирает сведения о супруге.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="spouseMiddleName" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Отчество супруга(и) заёмщика.
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Поле является обязательным, если банк собирает сведения о супруге.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="spouseDateOfBirth" type="xsd:dateTime" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Дата рождения супруга(и) заёмщика.
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Поле является обязательным, если банк собирает сведения о супруге.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="applicationStatus" type="xsd:int" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Статус кредитной заявки.
+								Возможные значения: 1 - Одобрена, 2 - Отказана, 3 - Одобрена, но кредит не выдан, 9 - Не определен.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="defaultStatus" type="xsd:int" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Дефолт-статус:
+								Возможные значения: 1 - Дефолт, 2 - Технический дефолт, 3 - Нет дефолта, 9 - Не определен</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="sex" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Пол заемщика. Возможные значения: 1 - Мужской, 2 - Женский. Если пол аппликанта не известен, следует использовать неопределённое значение (nil).
+								Поле является обязательным.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="dateOfBirth" type="xsd:dateTime" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Дата рождения заёмщика.
+								Данное поле является обязательным для заполнения!</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="placeOfBirth" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Место рождения заёмщика.
+								Данное поле является обязательным для заполнения!</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="idType" type="xsd:int" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Тип документа.
+								Данное поле является обязательным для заполнения!</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="idSeries" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Серия документа.
+								Данное поле является обязательным для заполнения, если у документа имеется серия!</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="idNum" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Номер документа.
+								Данное поле является обязательным для заполнения!</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="issueAuthority" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Орган, выдавший документ.
+								Данное поле является обязательным для заполнения!</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="issueCode" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Код подразделения, выдавшего документ.
+								Поле является обязательным для заполнения, если такие сведения доступны.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="issueLocation" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Место выдачи документа (для России - город; в ином случае - страна).
+								Данное поле является обязательным для заполнения!</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="issueDate" type="xsd:dateTime" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Дата выдачи документа.
+
+								Данное поле является обязательным для заполнения!</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="scndIdType" type="xsd:int" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Тип дополнительного документа.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="scndIdSeries" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Серия дополнительного документа.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="scndIdNum" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Номер дополнительного документа.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="scndIssueAuthority" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Орган, выдавший дополнительный документ.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="scndIssueLocation" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Место выдачи дополнительного документа (для России - город; в ином случае - страна).</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="scndIssueDate" type="xsd:dateTime" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Дата выдачи дополнительного документа.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="pastIdType" type="xsd:int" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Предыдущий ДУЛ (код). Дополнительно используется специальный код: 98 - аппликант документ не менял.
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Если банк собирает данную информацию, но про данного конкретного аппликанта информация отсутствует, используется nil.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="pastIdSeries" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Предыдущий ДУЛ: серия
+
+								Если банк не собирает информацию о предыдущих ДУЛ, поле не используется.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="pastIdNum" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Предыдущий ДУЛ: номер.
+
+								Если банк не собирает информацию о предыдущих ДУЛ, поле не используется.
+								Поле является обязательным, если сведения о предыдущем ДУЛ собираются и значение pastIdType не равно 98.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="pastIssueAuthority" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Предыдущий ДУЛ: орган, выдавший документ.
+
+								Если банк не собирает информацию о предыдущих ДУЛ, поле не используется.
+								Поле является обязательным, если сведения о предыдущем ДУЛ собираются и значение pastIdType не равно 98.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="pastIssueCode" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Предыдущий ДУЛ: код подразделения
+
+								Если банк не собирает информацию о предыдущих ДУЛ, поле не используется.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="pastIssueLocation" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Предыдущий ДУЛ: место выдачи.
+
+								Если банк не собирает информацию о предыдущих ДУЛ, поле не используется.
+								Поле является обязательным, если сведения о предыдущем ДУЛ собираются.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="pastIssueDate" type="xsd:dateTime" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Предыдущий ДУЛ: дата выдачи.
+
+								Если банк не собирает информацию о предыдущих ДУЛ, поле не используется.
+								Поле является обязательным, если сведения о предыдущем ДУЛ собираются.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="numChildren" type="xsd:int" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Количество детей у аппликанта.
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Если банк собирает данную информацию, но про данного конкретного аппликанта информация отсутствует, используется nil.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="education" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Образование (код по справочнику).
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Если банк собирает данную информацию, но про данного конкретного аппликанта информация отсутствует, используется nil.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="companyName" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Наименование компании.
+								Указывается только при выполнении запросов по ЮЛ (idType=34)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="regDate" type="xsd:dateTime" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Дата регистрации компании.
+								Указывается только при выполнении запросов по ЮЛ (idType=34)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="inn" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>ИНН заёмщика
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Если банк собирает данную информацию, но про данного конкретного аппликанта информация отсутствует, используется nil.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="pfNum" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Номер полиса пенсионного страхования
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Если банк собирает данную информацию, но про данного конкретного аппликанта информация отсутствует, используется nil.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="nationality" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Гражданство (код страны).
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Если банк собирает данную информацию, но про данного конкретного аппликанта информация отсутствует, используется nil.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="maritalStatus" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Семейное положение (код по справочнику).
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Если банк собирает данную информацию, но про данного конкретного аппликанта информация отсутствует, используется nil.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="driverNo" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Водительские права.
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Если банк собирает данную информацию, но про данного конкретного аппликанта информация отсутствует, используется nil.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="email" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>E-mail аппликанта
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Если банк собирает данную информацию, но про данного конкретного аппликанта информация отсутствует, используется nil.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="email2" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Дополнительные E-mail аппликанта
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Можно передавать два email в одном поле. В качестве разделителя используется ;
+								Если банк собирает данную информацию, но про данного конкретного аппликанта информация отсутствует, используется nil.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="homePhone" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Домашний телефон заёмщика.
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Если банк собирает данную информацию, но про данного конкретного аппликанта информация отсутствует, используется nil.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="mobilePhone" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Номер мобильного телефона заёмщика.
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Если банк собирает данную информацию, но про данного конкретного аппликанта информация отсутствует, используется nil.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="mobilePhone2" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Номер мобильного телефона заёмщика (второй).
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Если банк собирает данную информацию, но про данного конкретного аппликанта информация отсутствует, используется nil.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="actAddrCountry" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Адрес проживания: код страны.
+								Данное поле является обязательным для заполнения!</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="actAddrPostal" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Адрес проживания: почтовый индекс.
+								Данное поле является обязательным для заполнения!</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="actAddrRegion" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Адрес проживания: код региона. Данное
+								поле является обязательным для
+								заполнения!</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="actAddrDistrictType" type="tns:addrPrefixType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Тип района проживания аппликанта (сокращение для 2-го уровня по КЛАДР)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="actAddrDistrict" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Район проживания аппликанта</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="actAddrCityType" type="tns:addrPrefixType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Тип города проживания аппликанта (сокращение для 3-го уровня по КЛАДР)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="actAddrCity" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Адрес проживания: город. Данное поле
+								является обязательным для заполнения!</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="actAddrSettlementType" type="tns:addrPrefixType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Тип населенного пункта проживания аппликанта (сокращение для 4-го уровня по КЛАДР)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="actAddrSettlement" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Населенный пункт проживания аппликанта</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="actAddrStreetType" type="tns:addrPrefixType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Тип улицы проживания аппликанта</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="actAddrStreet" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Адрес проживания: название улицы. Данное
+								поле является обязательным для заполнения!</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="actAddrHouse" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Адрес проживания: номер дома. Данное
+								поле является обязательным для заполнения!</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="actAddrBuilding" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Корпус дома проживания аппликанта</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="actAddrStructure" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Строение дома проживания аппликанта</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="actAddrFlat" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Адрес фактического проживания: номер квартиры.
+								Данное поле является обязательным для заполнения!</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="actAddrMonths" type="xsd:int" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Количество месяцев проживания по адресу проживания
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Если банк собирает данную информацию, но про данного конкретного аппликанта информация отсутствует, используется nil.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="regAddrCountry" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Адрес регистрации заёмщика: код страны.
+								Данное поле является обязательным для заполнения!</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="regAddrPostal" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Адрес регистрации заёмщика: почтовый индекс.
+								Данное поле является обязательным для заполнения!</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="regAddrRegion" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Адрес регистрации заёмщика: код региона. Данное
+								поле является обязательным для
+								заполнения!</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="regAddrDistrictType" type="tns:addrPrefixType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Тип района адреса регистрации аппликанта (сокращение для 2-го уровня по КЛАДР)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="regAddrDistrict" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Район адреса регистрации аппликанта</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="regAddrCityType" type="tns:addrPrefixType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Тип города адреса регистрации аппликанта (сокращение для 3-го уровня по КЛАДР)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="regAddrCity" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Адрес регистрации заёмщика: город.
+								Данное поле является обязательным для заполнения!</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="regAddrSettlementType" type="tns:addrPrefixType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Тип населенного пункта адреса регистрации аппликанта (сокращение для 4-го уровня по КЛАДР)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="regAddrSettlement" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Населенный пункт адреса регистрации аппликанта</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="regAddrStreetType" type="tns:addrPrefixType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Тип улицы адреса регистрации аппликанта</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="regAddrStreet" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Адрес регистрации заёмщика: название улицы.
+								Данное поле является обязательным для заполнения!</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="regAddrHouse" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Адрес регистрации заёмщика: номер дома.
+								Данное поле является обязательным для заполнения!</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="regAddrBuilding" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Корпус дома адреса регистрации аппликанта</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="regAddrStructure" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Строение дома адреса регистрации аппликанта</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="regAddrFlat" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Адрес регистрации заёмщика: номер квартиры.
+								Данное поле является обязательным для заполнения!</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="regAddrPhone" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Телефон аппликанта по адресу регистрации
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Если банк собирает данную информацию, но про данного конкретного аппликанта информация отсутствует, используется nil.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="workPhone" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Рабочий телефон
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Если банк собирает данную информацию, но про данного конкретного аппликанта информация отсутствует, используется nil.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="workPhone2" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Рабочий телефон (второй)
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Если банк собирает данную информацию, но про данного конкретного аппликанта информация отсутствует, используется nil.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="empFullName" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Компания-работодатель: полное название.
+
+								Если банк собирает данные о работодателе, это поле является обязательным.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="empShortName" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Компания-работодатель: сокращённое название</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="empFirmName" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Компания-работодатель: фирменное наименование</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="empEngName" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Компания-работодатель: наименование на иностранном языке</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="empOgrn" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>ОГРН работодателя
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Если банк собирает данную информацию, но про данного конкретного аппликанта информация отсутствует, используется nil.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="empInn" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>ИНН компании-работодателя
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Если банк собирает данную информацию, но про данного конкретного аппликанта информация отсутствует, используется nil.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="empPhone" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Телефон работодателя
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Если банк собирает данную информацию, но про данного конкретного аппликанта информация отсутствует, используется nil.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="empSize" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Размер компании-работодателя. Возможны следующие значения: 0 - менее 50 человек, 1 - 50-100 человек, 2 - 101-249 человек, 3 - 250-499 человек, 4 - более 500 человек, 9 - Не известно
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Если банк собирает данную информацию, но про данного конкретного аппликанта информация отсутствует, используется nil.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="empBusinessIndustry" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Отрасль компании-работодателя. Возможны следующие значения:
+								0 - промышленность и машиностроение;
+								1 - сельское хозяйство;
+								2 - строительство;
+								3 - горное дело;
+								4 - энергетика;
+								5 - оптовая торговля;
+								6 - финансовое дело и страхование;
+								7 - здравоохранение;
+								8 - социальная помощь;
+								9 - денежные переводы и обмен валют;
+								10 - искусство, развлечение, отдых;
+								11 - казино и игорный бизнес;
+								12 - торговля предметами искусства и антиквариатом;
+								13 - авиа-, авто- и железнодорожные перевозки, складское хранение;
+								14 - административно-хозяйственные службы;
+								15 - розничная торговля;
+								16 - водо-, тепло- и энергоснабжение;
+								17 - управление компанией;
+								18 - предпринимательская деятельность;
+								19 - научная, техническая и профессиональная деятельность;
+								20 - образование;
+								21 - торговля ювелирными украшениями и драгоценными металлами;
+								22 - посреднические услуги по продаже и аренде недвижимости;
+								23 - снабжение;
+								24 - пресса, телевидение и радио;
+								25 - государственное управление;
+								26 - ресторан / кафе;
+								27 - бытовые услуги;
+								28 - аудиторские услуги / консалтинг;
+								29 - туризм;
+								30 - юридические и нотариальные услуги;
+								31 - ТЭК, добывающая промышленность;
+								32 - детективное и / или охранное предприятие;
+								33 - гостиницы;
+								34 - посредническая деятельность;
+								35 - издательская деятельность;
+								36 - информатика, телекоммуникации;
+								37 - легкая и пищевая промышленность;
+								38 - правоохранительные органы;
+								39 - вооруженные силы;
+								40 - салоны красоты, фитнес центры;
+								41 - ранспорт;
+								42 - сборочное производство;
+								97 - другое.
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Если банк собирает данную информацию, но про данного конкретного аппликанта информация отсутствует, используется nil.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="empCountry" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Страна адреса работодателя аппликанта</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="empPostal" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Почтовый индекс адреса компании-работодателя.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="empRegion" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Компания-работодатель: адрес - код региона.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="empDistrictType" type="tns:addrPrefixType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Тип района адреса работодателя аппликанта (сокращение для 2-го уровня по КЛАДР)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="empDistrict" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Район адреса работодателя аппликанта</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="empCityType" type="tns:addrPrefixType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Компания-работодатель: тип города (сокращение для 3-го уровня по КЛАДР)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="empCity" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Город адреса работодателя аппликанта</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="empSettlementType" type="tns:addrPrefixType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Тип населенного пункта адреса работодателя аппликанта (сокращение для 4-го уровня по КЛАДР)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="empSettlement" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Населенный пункт адреса
+								работодателя аппликанта</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="empStreetType" type="tns:addrPrefixType" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Компания-работодатель: тип улицы (сокращение для 5-го уровня по КЛАДР)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="empStreet" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Компания-работодатель: адрес - улица</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="empHouse" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Адрес компании-работодателя: адрес - номер дома</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="empBuilding" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Корпус дома адреса работодателя аппликанта</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="empStructure" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Строение дома адреса работодателя аппликанта</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="empApartment" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Номер офиса адреса работодателя аппликанта</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="empRestrFullName" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Сведения о реструктуризации компании-работодателя: полное название.
+
+								Если банк собирает данные о реструктуризации компании-работодателя, это поле является обязательным.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="empRestrShortName" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Сведения о реструктуризации компании-работодателя: сокращённое название</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="empRestrFirmName" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Сведения о реструктуризации компании-работодателя: фирменное наименование</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="empRestrEngName" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Сведения о реструктуризации компании-работодателя: наименование на иностранном языке</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="empRestrInn" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Сведения о реструктуризации компании-работодателя: ИНН
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Если банк собирает данную информацию, но про данного конкретного аппликанта информация отсутствует, используется nil.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="current" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Текущий статус работы по справочнику
+								Equifax (см. док-т "Формат запросов и
+								кредитных отчётов" компании Equifax,
+								Справочник 17 - Список допустимых
+								значений флага "текущее/предыдущее место
+								работы").</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="position" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Должность аппликанта. Текстовое поле.
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Если банк собирает данную информацию, но про данного конкретного аппликанта информация отсутствует, используется nil.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="occupationType" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Статус занятости (по справочнику)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="monthlyDocIncome" type="xsd:int" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Подтверждённый среднемесячный доход аппликанта (в рублях).
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Если банк собирает данную информацию, но про данного конкретного аппликанта информация отсутствует, используется nil.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="incomeProof" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Тип подтверждения дохода. Возможны следующие значения: 1 - справка 2-НДФЛ, 2 - автомобиль, 3 - недвижимость, 97 - справка в свободной форме.
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Если банк собирает данную информацию, но про данного конкретного аппликанта информация отсутствует, используется nil.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="monthlyUndocIncome" type="xsd:int" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Неподтверждённый среднемесячный доход аппликанта (в рублях).
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Если банк собирает данную информацию, но про данного конкретного аппликанта информация отсутствует, используется nil.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="profession" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Специальность (по справочнику)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="workDuration" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Продолжительность работы (в полных месяцах).
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Если банк собирает данную информацию, но про данного конкретного аппликанта информация отсутствует, используется nil.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="reason" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Цель заявки (код по справочнику "Типы счетов"):
+								1 - Кредит на автомобиль
+								4 - Лизинг
+								6 - Ипотека
+								7 - Кредитная карта
+								9 - Потребительский кредит
+								10 - Кредит на развитие бизнеса
+								11 - Кредит на пополнение оборотных средств
+								12 - Кредит на покупку оборудования
+								13 - Кредит на строительство недвижимости
+								14 - Кредит на покупку акций (например, маржинальное кредитование)
+								15 - Межбанковский кредит
+								16 - Кредит на обучение
+								17 - Счет телекоммуникационных услуг
+								18 - Кредит мобильного оператора
+								19 - Коммунальный счет
+								20 - Факторинг
+								21 - Микрозаем
+								22 - Нецелевой кредит наличными
+								50 - Просмотр счета
+								99 - Другое</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="purposeOfFinance" type="xsd:int" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Цель кредитования (по справочнику)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="productName" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Название кредитного продукта.
+
+								Если банк не предоставляет данную информацию, то поле не используется.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="tradeDate" type="xsd:dateTime" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Дата выданного кредита (используется при обновлении информации по заявке)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="amount" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Сумма запрашиваемого кредита. Должно	представлять собой целое число.
+
+								Если банк не предоставляет данную информацию, то поле не используется.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="creditLimit" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Лимит кредитования по кредитной карте/кредитной линии и т.п.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="currency" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Код валюты, в которой выдаётся кредит. ISO 4217
+
+								Если банк не предоставляет данную информацию, то поле не используется.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="credDuration" type="xsd:int" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Срок действия кредита. Значение указывается в месяцах.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="originalChannel" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Канал поступления кредитной заявки. Возможные значения:
+								1 - отделение,
+								2 - колл-центр,
+								3 - брокер,
+								4 - интернет,
+								5 - кросс-селл,
+								6 - точка продаж,
+								98 - другое
+
+								Если банк не предоставляет данную информацию, то поле не используется.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="downPaymentAmount" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Сумма первоначального взноса (в валюте заявки).
+
+								Если банк не предоставляет данную информацию, то поле не используется.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="finalPaymentAmount" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Сумма окончательного платежа (в валюте заявки).
+
+								Обязателен для лизинга (reason=4)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="nextPmt" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Размер периодического платежа</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="pmtFreq" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Частота платежей:
+								1 – Еженедельно
+								2 – Раз в две недели
+								3 – Ежемесячно
+								8 – Раз в 2 месяца
+								4 – Поквартально
+								9 – Раз в 4 месяца
+								5 – Раз в полгода
+								6 – Ежегодно
+								7 – Другое</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="collateralExistence" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Наличие залога. Возможны следующие значения: 0 - нет, 1 - да.
+
+								Если банк не предоставляет данную информацию, то поле не используется.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="collateralValue" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Стоимость залога (в валюте заявки). Данное поле допустимо только при наличии поля collateralExistence со значением 1.
+
+								Если банк не предоставляет данную информацию, то поле не используется.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="purchaseExistence" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Наличие товара (для товарного кредита). Возможны следующие значения: 0 - нет, 1 - да.
+
+								Если банк не предоставляет данную информацию, то поле не используется.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="purchaseValue" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Стоимость товара (в валюте заявки). Данное поле заполняется только для товарного кредита.
+
+								Если банк не предоставляет данную информацию, то поле не используется.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="purchaseModel" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Марка и модель приобретаемого товара.
+								Данное поле заполняется только для товарного кредита.
+
+								Если банк не предоставляет данную информацию, то поле не используется.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="posCode" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Код точки продаж. Данное поле является
+								обязательным, если среди кодов
+								коннекторов присутствует FPS</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="posPhone" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Телефон точки продаж.
+								Если банк не предоставляет данную информацию, то поле не используется.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="posCountry" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Страна адреса точки продаж.
+								Если банк не предоставляет данную информацию, то поле не используется.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="posPostal" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Почтовый индекс адреса точки продаж.
+								Если банк не предоставляет данную информацию, то поле не используется.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="posDistrict" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Район адреса точки продаж. Если банк не предоставляет данную информацию, то поле не используется.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="posRegion" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Регион адреса точки продаж. Если банк не предоставляет данную информацию, то поле не используется.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="posCity" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Город адреса точки продаж. Если банк не предоставляет данную информацию, то поле не используется.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="posSettlement" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Населенный пункт адреса точки продаж.
+								Если банк не предоставляет данную информацию, то поле не используется.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="posStreet" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Улица адреса точки продаж. Если банк не предоставляет данную информацию, то поле не используется.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="posHouse" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Дом адреса точки продаж. Если банк не предоставляет данную информацию, то поле не используется.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="posBuilding" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Корпус дома адреса точки продаж. Если банк не предоставляет данную информацию, то поле не используется.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="posStructure" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Строение дома адреса точки продаж. Если банк не предоставляет данную информацию, то поле не используется.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="posApartment" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Номер офиса адреса точки продаж. Если банк не предоставляет данную информацию, то поле не используется.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="carRegNo" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Регистрационный номер автомобиля.
+								Если банк не собирает данную информацию, то поле не используется.
+								Если банк собирает данную информацию, но данный конкретный аппликант не имеет автомобиля, следует оставить тег пустым.
+								Если банк собирает данную информацию, но про данного конкретного аппликанта информация отсутствует, используется nil.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="vin" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>VIN автомобиля. Допускается заполнять
+								только в том случае, если присутствует поле carRegNum.
+
+								Если банк не собирает данную информацию, то поле не используется.
+								Если банк собирает данную информацию, но данный конкретный аппликант не имеет автомобиля, следует оставить тег пустым.
+								Если банк собирает данную информацию, но про данного конкретного аппликанта информация отсутствует, используется nil.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="newApplicant" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Наличие одобренных заявок по Аппликанту
+								на момент подачи кредитной заявки.
+								Возможные значения: 0 - нет, 1 - да.
+
+								Если банк не передаёт данную информацию, то поле не используется.
+								Если банк передаёт данную информацию, но "новизна" данного конкретного аппликанта не определена, используется nil.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="exp" type="xsd:int" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Запрос экспертизы КРОНОС-ИНФОРМ
+								0 - не выполнять
+								1 - выполнить (по умолчанию)
+								2 - выполнить с верификацией организации
+								3 - выполнить с верификацией ИП
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="relationship" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Отношение данного субъекта к запрашиваемому кредиту. Возможны следующие значения:
+								1 - Основной заёмщик-ФЛ,
+								2 - Дополнительная карта,
+								3 - Авторизованный пользователь,
+								4 - Совместный (созаявитель),
+								5 - Поручитель,
+								6 - Залогодатель.
+								Если поле в запросе отсутствует, считается, что данный субъект - основной заёмщик-ФЛ.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="consent" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Признак получения согласия клиента на
+								запрос кредитной истории:
+								0 - Согласие не дано
+								1 - Согласие дано</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="consentDate" type="xsd:dateTime" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Дата выдачи согласия на запрос кредитной истории.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="consentEndDate" type="xsd:dateTime" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Дата окончания действия согласия на запрос кредитной истории.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="consentPurpose" type="xsd:int" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Цель согласия
+								1 - заключение и исполнение договора
+								2 - проверка благонадежности
+								3 - прием на работу
+								99 - другая</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="consentPurposeText" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Другая цель согласия. Обязательно, если consentPurpose=99</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="consentUser" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Наименование пользователя кредитной истории, который получил согласие</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="applicationWay" type="xsd:int" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Способ оформления заявки</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="category" type="xsd:int" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Категория запрошенного кредита</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="format" type="xsd:int" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Формат ответа:
+								1 - XML
+								2 - PDF
+								3 - HTML
+								4 - RTF</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="orderId" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Идентификатор заказа выписки ЕГРЮЛ/ЕГРИП в СПАРК</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="dateOfReport" type="xsd:dateTime" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Дата на которую совершается запрос.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="fraudStatus" type="xsd:int" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Фрод-статус (основной):
+								1 - Нет признаков мошенничества,
+								2 - Подозрение в мошенничестве (авто),
+								5 - Подозрение в мошенничестве (вручную),
+								6 - Явная негативная информация (уволен, недозвон, подлог документов),
+								7 - Мошенничество,
+								9 - Не определен
+
+								(используется при обновлении информации по заявке)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="fraudStatuses" type="tns:FraudStatuses" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Список фрод-статусов (для каждой сущности):
+								1 - Нет признаков фрода,
+								2 - Подозрение в мошенничестве (авто),
+								5 - Подозрение в мошенничестве (вручную),
+								7 - Мошенничество
+
+								(используется при обновлении информации по заявке)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="photo" type="xsd:base64Binary" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Фотография (в base64)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="photoid" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Уникальный идентификатор фотографии</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="photoDate" type="xsd:dateTime" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Дата создания фотографии</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="photoComment" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Комментарий к фотографии</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="fraudStatusText" type="xsd:string" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Описание фрод-статуса</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ProcessRequestOut">
+				<xsd:annotation>
+					<xsd:documentation>Тип данных, описывающий ответ от CRE</xsd:documentation>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element name="cacheUse" type="xsd:int" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Режим использования кэша</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="created" type="xsd:dateTime" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Дата создания отчёта</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="reportCode" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Код отчёта. Код отчёта может использоваться для формирования URL ссылки, по которой данный отчёт по кредитной истории будет доступен в Credit Registry для просмотра, без необходимости дополнительной аутентификации пользователя.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="response" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Отчёт в унифицированном формате</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="uid" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Идентификатор запроса</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="uidApplication" type="xsd:string" nillable="true" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Идентификатор кредитной заявки</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ConnectorCode">
+				<xsd:annotation>
+					<xsd:documentation>Тип данных определяет параметр запроса к БКИ</xsd:documentation>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element name="connectorCode" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation>Код коннектора БКИ. Возможны следующие значения:
+								0, 300, 301 – НБКИ
+								3, 32, 33 – ЭКС
+								6 – ОКБ
+								7, 10 – ФМС
+								17, 19 – БРС
+								20 – FPS
+								21 – National Hunter
+								23 – Кронос
+								27 - НБКИ AFS
+								28 – КиберПлат
+								35 - Локальный AFS
+								1011 – Внутреннее БКИ</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="subRequestCode" type="xsd:string" minOccurs="0" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Дополнительное описание запроса к БКИ.
+
+								Для НБКИ:
+								1 - стандартный сервис НБКИ
+								2 - скоринг-сервис НБКИ FICO
+								3 - FICO Expansion Score
+								4 - “История историй”
+								5 - скоринг-сервис НБКИ FICO2
+								6 - "Анализ социальных связей" (SNA)
+								7 - антифрод скоринг НБКИ (FICO Fraud)
+
+								Для Эквифакс: передается «как есть» в поле request.type (тип отчета).
+
+								Для БРС (битовая маска):
+								1 - Запрос кредитной истории
+								2 - Запрос рейтинга 1
+								4 - Запрос рейтинга 2
+								8 - Запрос верификации субъекта</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="cacheUse" type="xsd:int" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Режим использования кэша</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="uid" type="xsd:string" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Идентификатор запроса</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="JoinUidResponsesData">
+				<xsd:annotation>
+					<xsd:documentation>Тип описывает список запросов для сведения</xsd:documentation>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element name="authData" type="tns:AuthData" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Параметры доступа к CRE (используются в методах *WSI)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="uid" type="xsd:string" minOccurs="1" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Список идентификаторов запросов</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="returnReportCode" type="xsd:byte" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Признак, определяющий, требуется ли вернуть reportCode</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="saveToSFTables" type="xsd:byte" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Признак, определяющий, требуется ли выгружать результат вызова в SF-таблицы</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="AuthData">
+				<xsd:annotation>
+					<xsd:documentation>Структура, описывающая данные аутентификации для доступа к CRE</xsd:documentation>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element name="login" type="xsd:string" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Идентификатор пользователя CRE</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="password" type="xsd:string" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Пароль пользователя CRE</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="JoinApplicationResponsesData">
+				<xsd:annotation>
+					<xsd:documentation>Струкутра описывает параметры сведения отчётов по кредитной заявке</xsd:documentation>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element name="authData" type="tns:AuthData" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Параметры доступа к CRE (используются в методах *WSI)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="uidApplication" type="xsd:string" minOccurs="0" maxOccurs="1">
+						<xsd:annotation>
+							<xsd:documentation>Идентификатор кредитной заявки</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="returnReportCode" type="xsd:byte" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Признак, определяющий, требуется ли вернуть reportCode</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="saveToSFTables" type="xsd:byte" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Признак, определяющий, требуется ли выгружать результат вызова в SF-таблицы</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="MatchScheme">
+				<xsd:annotation>
+					<xsd:documentation>Тип описывает список схем для выполнения сравнений</xsd:documentation>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element name="schemeID" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Идентификатор схемы</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:int">
+								<xsd:minInclusive value="1"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="ProcessRequestData">
+				<xsd:annotation>
+					<xsd:documentation>Структура описывает данные для выполнения одиночного запроса</xsd:documentation>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element name="authData" type="tns:AuthData" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Параметры доступа к CRE (используются в методах *WSI)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="cacheUse" type="xsd:int" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Режим использования кэша</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="uid" type="xsd:string" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Идентификатор запроса</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="uidApplication" type="xsd:string" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Уникальный номер заявки</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="dateTimeApplication" type="xsd:dateTime" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Дата и время заявки</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="connectorCode" type="tns:ConnectorCode">
+						<xsd:annotation>
+							<xsd:documentation>Код коннектора к БКИ</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="matchScheme" type="tns:MatchScheme" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Список схем для выполнения сравнений</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="personParam" type="tns:PersonRequestData" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Параметры субъекта, по которому будет производиться поиск</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="extraFields" type="tns:extraFields" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Дополнительные параметры</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="GroupRequestData">
+				<xsd:annotation>
+					<xsd:documentation>Структура описывает данные для выполнения группового запроса</xsd:documentation>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element name="authData" type="tns:AuthData" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Параметры доступа к CRE (используются в методах *WSI)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="cacheUse" type="xsd:int" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Режим использования кэша</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="uid" type="xsd:string" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Идентификатор запроса</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="uidApplication" type="xsd:string" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Уникальный номер заявки</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="dateTimeApplication" type="xsd:dateTime" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Дата и время заявки</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="connectorCodes" type="tns:ConnectorCode" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Список коннекторов к БКИ</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="matchScheme" type="tns:MatchScheme" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Список схем для выполнения сравнений</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="personParam" type="tns:PersonRequestData" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Параметры субъекта, по которому будет производиться поиск</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="extraFields" type="tns:extraFields" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Дополнительные параметры</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="StatusUpdateData">
+				<xsd:annotation>
+					<xsd:documentation>Структура описывает данные для обновления статусов заявки</xsd:documentation>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element name="authData" type="tns:AuthData" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Параметры доступа к CRE (используются в методах *WSI)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="uid" type="xsd:string" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Идентификатор запроса</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="uidApplication" type="xsd:string" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Уникальный номер заявки</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="dateTimeApplication" type="xsd:dateTime" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Дата и время заявки</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="applicationStatus" type="xsd:int" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Статус кредитной заявки:
+								1 - Одобрена,
+								2 - Отказана,
+								3 - Одобрена, но кредит не выдан
+								9 - Не определен</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="defaultStatus" type="xsd:int" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Дефолт-статус:
+								1 - Дефолт,
+								2 - Технический дефолт,
+								3 - Нет дефолта,
+								9 - Не определен</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="connectorCodes" type="tns:ConnectorCode" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Список коннекторов</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="personParam" type="tns:PersonRequestData" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>Параметры субъекта</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="FraudStatuses">
+				<xsd:annotation>
+					<xsd:documentation>Список фрод-статусов (для каждой сущности)</xsd:documentation>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element name="idStatus" type="xsd:int" minOccurs="0"/>
+					<xsd:element name="innStatus" type="xsd:int" minOccurs="0"/>
+					<xsd:element name="pfNumStatus" type="xsd:int" minOccurs="0"/>
+					<xsd:element name="driverNoStatus" type="xsd:int" minOccurs="0"/>
+					<xsd:element name="scndIdStatus" type="xsd:int" minOccurs="0"/>
+					<xsd:element name="pastIdStatus" type="xsd:int" minOccurs="0"/>
+					<xsd:element name="spouseStatus" type="xsd:int" minOccurs="0"/>
+					<xsd:element name="regAddrStatus" type="xsd:int" minOccurs="0"/>
+					<xsd:element name="regAddrPhoneStatus" type="xsd:int" minOccurs="0"/>
+					<xsd:element name="actAddrStatus" type="xsd:int" minOccurs="0"/>
+					<xsd:element name="homePhoneStatus" type="xsd:int" minOccurs="0"/>
+					<xsd:element name="mobilePhoneStatus" type="xsd:int" minOccurs="0"/>
+					<xsd:element name="mobilePhone2Status" type="xsd:int" minOccurs="0"/>
+					<xsd:element name="workPhoneStatus" type="xsd:int" minOccurs="0"/>
+					<xsd:element name="workPhone2Status" type="xsd:int" minOccurs="0"/>
+					<xsd:element name="empStatus" type="xsd:int" minOccurs="0"/>
+					<xsd:element name="empAddrStatus" type="xsd:int" minOccurs="0"/>
+					<xsd:element name="empPhoneStatus" type="xsd:int" minOccurs="0"/>
+					<xsd:element name="emailStatus" type="xsd:int" minOccurs="0"/>
+					<xsd:element name="carStatus" type="xsd:int" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="extraFields">
+				<xsd:annotation>
+					<xsd:documentation>Тип для передачи дополнительных/опциональных параметров</xsd:documentation>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element name="field" maxOccurs="unbounded">
+						<xsd:complexType>
+							<xsd:attribute name="name" type="xsd:string" use="required">
+								<xsd:annotation>
+									<xsd:documentation>Имя параметра</xsd:documentation>
+								</xsd:annotation>
+							</xsd:attribute>
+							<xsd:attribute name="value" type="xsd:string" use="required">
+								<xsd:annotation>
+									<xsd:documentation>Значение параметра</xsd:documentation>
+								</xsd:annotation>
+							</xsd:attribute>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:simpleType name="addrPrefixType">
+				<xsd:annotation>
+					<xsd:documentation>Тип для указания префиксов перед адресными объектами</xsd:documentation>
+				</xsd:annotation>
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="10"/>
+					<xsd:whiteSpace value="collapse"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:element name="AuthData" type="tns:AuthData">
+				<xsd:annotation>
+					<xsd:documentation>Элемент описывает параметры доступа к CRE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ProcessRequestData" type="tns:ProcessRequestData">
+				<xsd:annotation>
+					<xsd:documentation>Элемент описывает параметры запроса в БКИ</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="GroupRequestData" type="tns:GroupRequestData">
+				<xsd:annotation>
+					<xsd:documentation>Элемент описывает параметры группового запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="StatusUpdateData" type="tns:StatusUpdateData">
+				<xsd:annotation>
+					<xsd:documentation>Элемент описывает параметры для обновления статусов заявки</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="JoinApplicationResponsesData" type="tns:JoinApplicationResponsesData">
+				<xsd:annotation>
+					<xsd:documentation>Элемент описывает параметры сведения отчётов по кредитной заявке</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="JoinUidResponsesData" type="tns:JoinUidResponsesData">
+				<xsd:annotation>
+					<xsd:documentation>Элемент описывает параметры сведения отчётов по списку идентификаторов</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ProcessRequestOut" type="tns:ProcessRequestOut">
+				<xsd:annotation>
+					<xsd:documentation>Элемент представляет собой результат работы методов сервиса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="processRequestRequest">
+		<wsdl:part name="authData" element="tns:AuthData"/>
+		<wsdl:part name="requestData" element="tns:ProcessRequestData"/>
+	</wsdl:message>
+	<wsdl:message name="processReqWSIRequest">
+		<wsdl:part name="requestData" element="tns:ProcessRequestData"/>
+	</wsdl:message>
+	<wsdl:message name="processRequestResponse">
+		<wsdl:part name="report" element="tns:ProcessRequestOut">
+			<wsdl:documentation>Ответ БКИ, приведённый к Единому формату</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="groupRequestRequest">
+		<wsdl:part name="authData" element="tns:AuthData"/>
+		<wsdl:part name="requestData" element="tns:GroupRequestData"/>
+	</wsdl:message>
+	<wsdl:message name="groupReqWSIRequest">
+		<wsdl:part name="requestData" element="tns:GroupRequestData"/>
+	</wsdl:message>
+	<wsdl:message name="groupRequestResponse">
+		<wsdl:part name="joinedReport" element="tns:ProcessRequestOut">
+			<wsdl:documentation>Сведённый отчёт, полученный на основании отчётов от БКИ</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="joinUidResponsesRequest">
+		<wsdl:part name="authData" element="tns:AuthData">
+			<wsdl:documentation>Аутентификационные данные для доступа к CRE</wsdl:documentation>
+		</wsdl:part>
+		<wsdl:part name="requestData" element="tns:JoinUidResponsesData">
+			<wsdl:documentation>Перечень uid для сведения</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="joinUidResponsesWSIRequest">
+		<wsdl:part name="requestData" element="tns:JoinUidResponsesData"/>
+	</wsdl:message>
+	<wsdl:message name="joinUidResponsesResponse">
+		<wsdl:part name="joinedReport" element="tns:ProcessRequestOut">
+			<wsdl:documentation>Результат сведения</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="joinApplicationResponsesRequest">
+		<wsdl:part name="authData" element="tns:AuthData">
+		</wsdl:part>
+		<wsdl:part name="requestData" element="tns:JoinApplicationResponsesData">
+			<wsdl:documentation>Идентификатор кредитной заявки для сведения</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="joinApplicationResponsesWSIRequest">
+		<wsdl:part name="requestData" element="tns:JoinApplicationResponsesData"/>
+	</wsdl:message>
+	<wsdl:message name="joinApplicationResponsesResponse">
+		<wsdl:part name="joinedReport" element="tns:ProcessRequestOut">
+			<wsdl:documentation>Результат сведения</wsdl:documentation>
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="statusUpdateRequest">
+		<wsdl:part name="authData" element="tns:AuthData"/>
+		<wsdl:part name="requestData" element="tns:StatusUpdateData"/>
+	</wsdl:message>
+	<wsdl:message name="statusUpdateWSIRequest">
+		<wsdl:part name="requestData" element="tns:StatusUpdateData"/>
+	</wsdl:message>
+	<wsdl:message name="statusUpdateResponse">
+		<wsdl:part name="joinedReport" element="tns:ProcessRequestOut"/>
+	</wsdl:message>
+	<wsdl:portType name="SingleFormatService">
+		<wsdl:documentation>Интерфейс веб-сервиса</wsdl:documentation>
+		<wsdl:operation name="processRequest">
+			<wsdl:documentation>Метод осуществляет запрос к указанному БКИ и
+				выдает ответ в Едином формате</wsdl:documentation>
+			<wsdl:input message="tns:processRequestRequest" wsam:Action="http://creditregistry.ru/2010/webservice/SingleFormatService/processRequest"/>
+			<wsdl:output message="tns:processRequestResponse" wsam:Action="http://creditregistry.ru/2010/webservice/SingleFormatService/processRequestResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="processRequestWSI">
+			<wsdl:input message="tns:processReqWSIRequest" wsam:Action="http://creditregistry.ru/2010/webservice/SingleFormatService/processRequestWSI"/>
+			<wsdl:output message="tns:processRequestResponse" wsam:Action="http://creditregistry.ru/2010/webservice/SingleFormatService/processRequestWSIResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="groupRequest">
+			<wsdl:documentation>Метод осуществляет запрос к нескольким БКИ,
+				производит унификацию и сведение и
+				выдает ответ в Едином формате</wsdl:documentation>
+			<wsdl:input message="tns:groupRequestRequest" wsam:Action="http://creditregistry.ru/2010/webservice/SingleFormatService/groupRequest"/>
+			<wsdl:output message="tns:groupRequestResponse" wsam:Action="http://creditregistry.ru/2010/webservice/SingleFormatService/groupRequestResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="groupRequestWSI">
+			<wsdl:input message="tns:groupReqWSIRequest" wsam:Action="http://creditregistry.ru/2010/webservice/SingleFormatService/groupRequestWSI"/>
+			<wsdl:output message="tns:groupRequestResponse" wsam:Action="http://creditregistry.ru/2010/webservice/SingleFormatService/groupRequestWSIResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="statusUpdate">
+			<wsdl:documentation>Метод предназначен для обновления информации
+				о статусах кредитных заявок</wsdl:documentation>
+			<wsdl:input message="tns:statusUpdateRequest" wsam:Action="http://creditregistry.ru/2010/webservice/SingleFormatService/statusUpdate"/>
+			<wsdl:output message="tns:statusUpdateResponse" wsam:Action="http://creditregistry.ru/2010/webservice/SingleFormatService/statusUpdateResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="statusUpdateWSI">
+			<wsdl:input message="tns:statusUpdateWSIRequest" wsam:Action="http://creditregistry.ru/2010/webservice/SingleFormatService/statusUpdateWSI"/>
+			<wsdl:output message="tns:statusUpdateResponse" wsam:Action="http://creditregistry.ru/2010/webservice/SingleFormatService/statusUpdateWSIResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="joinUidResponses">
+			<wsdl:documentation>Метод осуществляет сведение нескольких
+				отчётов, указанных с помощью UID</wsdl:documentation>
+			<wsdl:input message="tns:joinUidResponsesRequest" wsam:Action="http://creditregistry.ru/2010/webservice/SingleFormatService/joinUidResponses"/>
+			<wsdl:output message="tns:joinUidResponsesResponse" wsam:Action="http://creditregistry.ru/2010/webservice/SingleFormatService/joinUidResponsesResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="joinUidResponsesWSI">
+			<wsdl:input message="tns:joinUidResponsesWSIRequest" wsam:Action="http://creditregistry.ru/2010/webservice/SingleFormatService/joinUidResponsesWSI"/>
+			<wsdl:output message="tns:joinUidResponsesResponse" wsam:Action="http://creditregistry.ru/2010/webservice/SingleFormatService/joinUidResponsesWSIResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="joinApplicationResponses">
+			<wsdl:documentation>Метод осуществляет сведение нескольких
+				отчётов, объединённых единым идентификатором
+				приложения (uidApplication)</wsdl:documentation>
+			<wsdl:input message="tns:joinApplicationResponsesRequest" wsam:Action="http://creditregistry.ru/2010/webservice/SingleFormatService/joinApplicationResponses"/>
+			<wsdl:output message="tns:joinApplicationResponsesResponse" wsam:Action="http://creditregistry.ru/2010/webservice/SingleFormatService/joinApplicationResponsesResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="joinApplicationResponsesWSI">
+			<wsdl:input message="tns:joinApplicationResponsesWSIRequest" wsam:Action="http://creditregistry.ru/2010/webservice/SingleFormatService/joinApplicationResponsesWSI"/>
+			<wsdl:output message="tns:joinApplicationResponsesResponse" wsam:Action="http://creditregistry.ru/2010/webservice/SingleFormatService/joinApplicationResponsesWSIResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="SingleFormatServiceHttpBinding" type="tns:SingleFormatService">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="processRequest">
+			<soap:operation soapAction="http://creditregistry.ru/2010/webservice/SingleFormatService/processRequest"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="processRequestWSI">
+			<soap:operation soapAction="http://creditregistry.ru/2010/webservice/SingleFormatService/processRequestWSI"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="groupRequest">
+			<soap:operation soapAction="http://creditregistry.ru/2010/webservice/SingleFormatService/groupRequest"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="groupRequestWSI">
+			<soap:operation soapAction="http://creditregistry.ru/2010/webservice/SingleFormatService/groupRequestWSI"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="statusUpdate">
+			<soap:operation soapAction="http://creditregistry.ru/2010/webservice/SingleFormatService/statusUpdate"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="statusUpdateWSI">
+			<soap:operation soapAction="http://creditregistry.ru/2010/webservice/SingleFormatService/statusUpdateWSI"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="joinUidResponses">
+			<soap:operation soapAction="http://creditregistry.ru/2010/webservice/SingleFormatService/joinUidResponses"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="joinUidResponsesWSI">
+			<soap:operation soapAction="http://creditregistry.ru/2010/webservice/SingleFormatService/joinUidResponsesWSI"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="joinApplicationResponses">
+			<soap:operation soapAction="http://creditregistry.ru/2010/webservice/SingleFormatService/joinApplicationResponses"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="joinApplicationResponsesWSI">
+			<soap:operation soapAction="http://creditregistry.ru/2010/webservice/SingleFormatService/joinApplicationResponsesWSI"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="SingleFormatService">
+		<wsdl:documentation>Веб-сервис, предоставляющий сервисы, связанные с Единым форматом</wsdl:documentation>
+		<wsdl:port name="SingleFormatServiceHttpPort" binding="tns:SingleFormatServiceHttpBinding">
+			<soap:address location="http://creditreg-test.abb-win.akbars.ru:8080/credit_registry/xservices/SingleFormatService"/>
+			<wsdl:documentation>Точка входа для сервиса</wsdl:documentation>
+			<wsaw:UsingAddressing/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,1197 @@
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ru.akbars.integro.dao.SingleFormatMapper">
+
+	<insert id="insertCreRequest" parameterType="map">
+		insert into cre_request(
+		RTDMID
+		, CRE_ID
+		, ITER_NUM
+		, METHOD_NAME
+		, REQUEST_STATUS
+		, REQUEST_START_TS
+		, REQUEST_END_TS
+		, NATURALPERSONID
+		)
+		
+		values(
+		#{rtdmid}
+		, #{creid}
+		, #{iternum}
+		, #{methodname}
+		, #{requeststatus}
+		, #{startts}
+		, #{endts}
+		, #{applicantid, jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<insert id="insertMain" parameterType="map">
+		insert into cre_main(
+		RTDMID,
+		CRE_ID,
+		USER_UID,
+		APPLICATION_UID,
+		APPLICANT_ID,
+		GROUP_ID,
+		CREATE_DATETIME,
+		MAIN_ID,
+		EXTENSION,
+		INFO_SOURCES,
+		NATURALPERSONID,
+		REPORT_DATETIME
+		)
+
+		values(#{rtdmid}, #{creid},
+		#{req.uid, jdbcType=VARCHAR},
+		#{req.applicationuid, jdbcType=VARCHAR},
+		#{req.applicantid,
+		jdbcType=VARCHAR},
+		#{req.groupid, jdbcType=VARCHAR},
+		#{req.createdatetime, jdbcType=VARCHAR},
+		#{imainid,jdbcType=NUMERIC},
+		#{extension, jdbcType=VARCHAR},
+		#{infosources, jdbcType=VARCHAR},
+		#{applicantid, jdbcType=VARCHAR},
+		#{req.reportdatetime,
+		javaType=java.lang.String,
+		jdbcType=TIMESTAMP
+		,typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler}
+		)
+	</insert>
+
+	<insert id="insertCDD" parameterType="map">
+
+		insert into
+		cre_connector_data_detail(
+		RTDMID,
+		CRE_ID,
+		CONNECTOR_DATA_ID,
+		SOURCE,
+		RESULT_CODE,
+		ERROR,
+		ERROR_TEXT,
+		CONNECTOR_CODE,
+		SUBREQUEST_CODE,
+		CREATED_DATE,
+		COMPLETE_DATE,
+		BUREAU_STATUS,
+		CACHEUSE,
+		CDD_ID,
+		NATURALPERSONID
+		)
+
+		values(
+		#{rtdmid},#{creid},
+		#{req.connectordataid, jdbcType=NUMERIC},
+		#{req.source,
+		jdbcType=VARCHAR},
+		#{req.resultcode, jdbcType=NUMERIC},
+		#{req.error,
+		jdbcType=VARCHAR},
+		#{req.errortext,
+		jdbcType=VARCHAR},
+		#{req.connectorcode, jdbcType=VARCHAR},
+		#{req.subrequestcode,
+		jdbcType=VARCHAR},
+		#{req.createddate,
+		javaType=java.lang.String,
+		jdbcType=TIMESTAMP
+		,typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+		#{req.completedate,
+		javaType=java.lang.String,
+		jdbcType=TIMESTAMP
+		,typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+		#{req.bureaustatus, jdbcType=NUMERIC},
+		#{req.cacheuse, jdbcType=NUMERIC},
+		#{cddid,jdbcType=NUMERIC},
+		#{applicantid, jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<insert id="insertSecondary" parameterType="map">
+
+		insert into
+		cre_secondary
+		(
+		RTDMID,
+		CRE_ID,
+		RESPONSE_STATUS,
+		ERROR_TEXT,
+		SECONDARY_ID,
+		EXTENSION,
+		INFO_SOURCES,
+		NATURALPERSONID
+		)
+
+		values
+		(
+		#{rtdmid, jdbcType=NUMERIC},
+		#{creid, jdbcType=NUMERIC},
+		#{req.responsestatus, jdbcType=VARCHAR},
+		#{req.errortext,
+		jdbcType=VARCHAR},
+		#{secondaryid,jdbcType=NUMERIC},
+		#{extension, jdbcType=VARCHAR},
+		#{infosources, jdbcType=VARCHAR},
+		#{applicantid, jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<insert id="insertGeneral" parameterType="map">
+		insert into
+		cre_general
+		(
+		RTDMID,
+		CRE_ID,
+		NAMES,
+		DOCUMENTS,
+		ADDRESSES,
+		PHONES,
+		EMPLOYMENTS,
+		PASSPORT_CHECKS,
+		COMPANY_CHECKS,
+		INQUIRIES,
+		GENERAL_ID,
+		EXTENSION,
+		NATURALPERSONID
+		)
+
+		values
+		(
+		#{rtdmid,
+		jdbcType =
+		NUMERIC},
+		#{creid, jdbcType = NUMERIC},
+		#{req.names,
+		jdbcType = NUMERIC},
+		#{req.documents, jdbcType = NUMERIC},
+		#{req.addresses, jdbcType =
+		NUMERIC},
+		#{req.phones,
+		jdbcType = NUMERIC},
+		#{req.employments, jdbcType
+		= NUMERIC},
+		#{req.passportchecks, jdbcType = NUMERIC},
+		#{req.companychecks, jdbcType = NUMERIC},
+		#{req.inquiries, jdbcType =
+		NUMERIC},
+		#{generalid,jdbcType=NUMERIC},
+		#{extension, jdbcType=VARCHAR},
+		#{applicantid, jdbcType=VARCHAR}
+		)
+	</insert>
+
+
+	<insert id="insertName" parameterType="map">
+		insert into CRE_NAME
+		(
+		RTDMID,
+		CRE_ID,
+		LAST_NAME,
+		FIRST_NAME,
+		SECOND_NAME,
+		GENDER,
+		BIRTH_DATE,
+		CITIZENSHIP,
+		BIRTH_PLACE,
+		PREV_LAST_NAME,
+		PREV_FIRST_NAME,
+		MARITAL_STATUS,
+		DEATH_FLAG,
+		DEPENDENTS,
+		NAME_ID,
+		EXTENSION,
+		INFO_SOURCES,
+		NATURALPERSONID
+		)
+
+		values
+		(
+		#{rtdmid, jdbcType =
+		NUMERIC},#{creid, jdbcType = NUMERIC},
+		#{req.lastname, jdbcType =
+		VARCHAR},
+		#{req.firstname, jdbcType = VARCHAR},
+		#{req.secondname,
+		jdbcType = VARCHAR},
+		#{req.gender, jdbcType
+		= VARCHAR},
+		#{req.birthdate,
+		javaType=java.lang.String,
+		jdbcType=TIMESTAMP,
+		typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+		#{req.citizenship, jdbcType =
+		VARCHAR},
+		#{req.birthplace,
+		jdbcType = VARCHAR},
+		#{req.prevlastname,
+		jdbcType = VARCHAR},
+		#{req.prevfirstname, jdbcType = VARCHAR},
+		#{req.maritalstatus, jdbcType = VARCHAR},
+		#{req.deathflag,
+		jdbcType =
+		VARCHAR},
+		#{req.dependents, jdbcType = NUMERIC},
+		#{nameid,jdbcType=NUMERIC},
+		#{extension, jdbcType=VARCHAR},
+		#{infosources, jdbcType=VARCHAR},
+		#{applicantid, jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<insert id="insertDocument" parameterType="map">
+		insert into
+		CRE_DOCUMENT
+		(
+		RTDMID,
+		CRE_ID,
+		SERIES,
+		NUM,
+		ISSUE_DATE,
+		ISSUED_BY,
+		ISSUE_PLACE,
+		TYPE,
+		DOCUMENT_ID,
+		EXTENSION,
+		INFO_SOURCES,
+		NATURALPERSONID
+		)
+
+		values
+		(
+		#{rtdmid, jdbcType=NUMERIC}, #{creid,
+		jdbcType=NUMERIC},
+		#{req.series, jdbcType=VARCHAR},
+		#{req.num,
+		jdbcType=VARCHAR},
+		#{req.issuedate,
+		javaType=java.lang.String,
+		jdbcType=TIMESTAMP,
+		typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+		#{req.issuedby,
+		jdbcType=VARCHAR},
+		#{req.issueplace, jdbcType=VARCHAR},
+		#{req.type,
+		jdbcType=VARCHAR},
+		#{documentid,jdbcType=NUMERIC},
+		#{extension, jdbcType=VARCHAR},
+		#{infosources, jdbcType=VARCHAR},
+		#{applicantid, jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<insert id="insertAddress" parameterType="Map">
+		insert into
+		cre_address(
+		RTDMID,
+		CRE_ID,
+		TYPE,
+		STATUS,
+		LOCATION,
+		AREA,
+		HOUSE,
+		STREET,
+		STREET_TYPE,
+		BLOCK,
+		BUILDING,
+		APARTMENT,
+		TOWN,
+		REGION,
+		POSTAL,
+		RESIDENCE_DATE,
+		ADDRESS_ID,
+		EXTENSION,
+		NATURALPERSONID,
+		INFO_SOURCES
+		)
+
+		values(
+		#{rtdmid, jdbcType=NUMERIC},
+		#{creid,
+		jdbcType=NUMERIC},
+		#{req.type, jdbcType=VARCHAR},
+		#{req.status,
+		jdbcType=VARCHAR},
+		#{req.location,
+		jdbcType=VARCHAR},
+		#{req.area,
+		jdbcType=VARCHAR},
+		#{req.house, jdbcType=VARCHAR},
+		#{req.street,
+		jdbcType=VARCHAR},
+		#{req.streettype, jdbcType=VARCHAR},
+		#{req.block,
+		jdbcType=VARCHAR},
+		#{req.building,
+		jdbcType=VARCHAR},
+		#{req.apartment,
+		jdbcType=VARCHAR},
+		#{req.town, jdbcType=VARCHAR},
+		#{req.region,
+		jdbcType=VARCHAR},
+		#{req.postal, jdbcType=VARCHAR},
+		#{req.residencedate, javaType=java.lang.String,
+		jdbcType=TIMESTAMP
+		,typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+		#{addressid,jdbcType=NUMERIC},
+		#{extension, jdbcType=VARCHAR},
+		#{applicantid, jdbcType=VARCHAR},
+		#{infosources, jdbcType=VARCHAR}
+		)
+	</insert>
+
+
+	<insert id="insertPhone" parameterType="map">
+		insert into CRE_PHONE
+		(
+		RTDMID,
+		CRE_ID,
+		PHONE_TYPE,
+		NUM,
+		PHONE_ID,
+		EXTENSION,
+		NATURALPERSONID
+		)
+
+		values
+		(
+		#{rtdmid}, #{creid},
+		#{req.phonetype, jdbcType=NUMERIC},
+		#{req.num, jdbcType=VARCHAR},
+		#{phoneid,jdbcType=NUMERIC},
+		#{extension, jdbcType=VARCHAR},
+		#{applicantid, jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<insert id="insertEmployment" parameterType="map">
+		insert into
+		CRE_EMPLOYMENT
+		(
+		RTDMID,
+		CRE_ID,
+		"name",
+		"occupationtrade",
+		"occupationstatus",
+		"occupationcode",
+		"startdate",
+		"enddate",
+		"current",
+		EMPLOYMENT_ID,
+		EXTENSION,
+		INFO_SOURCES,
+		NATURALPERSONID
+		)
+
+		values (
+		#{rtdmid}, #{creid},
+		#{ req.name, jdbcType=VARCHAR},
+		#{ req.occupationtrade,
+		jdbcType=VARCHAR},
+		#{ req.occupationstatus, jdbcType=VARCHAR},
+		#{
+		req.occupationcode, jdbcType=VARCHAR},
+		#{ req.startdate,
+		javaType=java.lang.String,
+		jdbcType=TIMESTAMP
+		,typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+		#{ req.enddate,
+		javaType=java.lang.String,
+		jdbcType=TIMESTAMP
+		,typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+		#{ req.current, jdbcType=NUMERIC},
+		#{employmentid,jdbcType=NUMERIC},
+		#{extension, jdbcType=VARCHAR},
+		#{infosources, jdbcType=VARCHAR},
+		#{applicantid, jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<insert id="insertLoansOverview" parameterType="map">
+		insert into
+		cre_loans_overview
+		(
+		RTDMID,
+		CRE_ID,
+		LOANS_MAIN_BORROWER,
+		LOANS_ACTIVE,
+		LAST_LOAN_DATE,
+		FIRST_LOAN_DATE,
+		MAX_OVERDUE_STATUS,
+		TTL_OFFICIALS,
+		TTL_LEGALS,
+		TTL_BANKRUPTCIES,
+		RECENT_OFFICIAL_UPDATE_DATE,
+		INQUIRY_RECENT_PERIOD,
+		TTL_DISPUTED_ACCOUNTS,
+		TTL_DISPUTED_LEGALS,
+		TTL_DISPUTED_OFFICIALS ,
+		INQUIRY_3_MONTH,
+		INQUIRY_6_MONTH,
+		INQUIRY_9_MONTH,
+		INQUIRY_12_MONTH,
+		TTL_INQUIRIES,
+		TTL_AUTO_LOAN,
+		TTL_MORTGAGE,
+		TTL_CREDIT_CARD,
+		TTL_CONSUMER,
+		TTL_ACCOUNTS,
+		WORST_STATUS_EVER,
+		TTL_DELQ_5,
+		TTL_DELQ_5_29,
+		TTL_DELQ_30_59,
+		TTL_DELQ_60_89,
+		TTL_DELQ_90_PLUS,
+		TTL_DELQ_30_L12M,
+		TTL_DELQ_30_59_L12M,
+		TTL_DELQ_60_89_L12M,
+		TTL_DELQ_90_PLUS_L12M,
+		LOANS_COBORROWER,
+		LOANS_ACTIVE_COBORROWER,
+		PAY_LOAD,
+		CRITERIA_1,
+		CRITERIA_2,
+		CRITERIA_3,
+		CRITERIA_4,
+		CRITERIA_5,
+		CRITERIA_6,
+		INQUIRY_1_WEEK,
+		INQUIRY_1_MONTH,
+		LOANS_OV_ID,
+		EXTENSION,
+		INFO_SOURCES,
+		NATURALPERSONID,
+		INQUIRY_1_DAY,
+		TTL_DELQ_7,
+		TTL_DELQ_8_29
+		)
+
+		values
+		(
+		#{rtdmid, jdbcType=NUMERIC}, #{creid, jdbcType=NUMERIC} ,
+		#{req.loansmainborrower, jdbcType=NUMERIC},
+		#{req.loansactive,
+		jdbcType=NUMERIC},
+		#{req.lastloandate, javaType=java.lang.String,
+		jdbcType=TIMESTAMP, typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+		#{req.firstloandate, javaType=java.lang.String,
+		jdbcType=TIMESTAMP,
+		typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+		#{req.maxoverduestatus,
+		jdbcType=VARCHAR},
+		#{req.ttlofficials, jdbcType=NUMERIC},
+		#{req.ttllegals, jdbcType=NUMERIC},
+		#{req.ttlbankruptcies,
+		jdbcType=NUMERIC},
+		#{req.recentofficialupdatedate,
+		javaType=java.lang.String,
+		jdbcType=TIMESTAMP,
+		typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+		#{req.inquiryrecentperiod,
+		jdbcType=NUMERIC},
+		#{req.ttldisputedaccounts, jdbcType=NUMERIC},
+		#{req.ttldisputedlegals, jdbcType=NUMERIC},
+		#{req.ttldisputedofficials, jdbcType=NUMERIC} ,
+		#{req.inquiry3MONTH,
+		jdbcType=NUMERIC},
+		#{req.inquiry6MONTH, jdbcType=NUMERIC},
+		#{req.inquiry9MONTH, jdbcType=NUMERIC},
+		#{req.inquiry12MONTH,
+		jdbcType=NUMERIC},
+		#{req.ttlinquiries, jdbcType=NUMERIC},
+		#{req.ttlautoloan, jdbcType=NUMERIC},
+		#{req.ttlmortgage,
+		jdbcType=NUMERIC},
+		#{req.ttlcreditcard, jdbcType=NUMERIC},
+		#{req.ttlconsumer, jdbcType=NUMERIC},
+		#{req.ttlaccounts,
+		jdbcType=NUMERIC},
+		#{req.worststatusever, jdbcType=VARCHAR},
+		#{req.ttldelq5, jdbcType=NUMERIC},
+		#{req.ttldelq529, jdbcType=NUMERIC},
+		#{req.ttldelq3059, jdbcType=NUMERIC},
+		#{req.ttldelq6089,
+		jdbcType=NUMERIC},
+		#{req.ttldelq90PLUS, jdbcType=NUMERIC},
+		#{req.ttldelq30L12M, jdbcType=NUMERIC},
+		#{req.ttldelq3059L12M,
+		jdbcType=NUMERIC},
+		#{req.ttldelq6089L12M, jdbcType=NUMERIC},
+		#{req.ttldelq90PLUSL12M, jdbcType=NUMERIC},
+		#{req.loanscoborrower,
+		jdbcType=NUMERIC},
+		#{req.loansactivecoborrower, jdbcType=NUMERIC},
+		#{req.payload, jdbcType=NUMERIC},
+		#{req.criteria1, jdbcType=VARCHAR},
+		#{req.criteria2, jdbcType=VARCHAR},
+		#{req.criteria3, jdbcType=VARCHAR},
+		#{req.criteria4, jdbcType=VARCHAR},
+		#{req.criteria5, jdbcType=VARCHAR},
+		#{req.criteria6, jdbcType=VARCHAR},
+		#{req.inquiry1WEEK,
+		jdbcType=NUMERIC},
+		#{req.inquiry1MONTH, jdbcType=NUMERIC},
+		#{loanovid,jdbcType=NUMERIC},
+		#{extension, jdbcType=VARCHAR},
+		#{infosources, jdbcType=VARCHAR},
+		#{applicantid, jdbcType=VARCHAR},
+		#{req.inquiry1DAY, jdbcType=NUMERIC},
+		#{req.ttldelq7, jdbcType=NUMERIC},
+		#{req.ttldelq829, jdbcType=NUMERIC}
+		)
+	</insert>
+
+	<insert id="insertLoan" parameterType="map">
+		insert into cre_loan(
+		RTDMID,
+		CRE_ID,
+		ACCOUNT,
+		CURRENCY,
+		RELATIONSHIP,
+		OPEN_DATE,
+		FINAL_PMT_DATE,
+		TYPE,
+		PMT_STRING_84M,
+		CUR_TO_BASE_LIMIT,
+		STATUS,
+		OUTSTANDING,
+		NEXT_PMT,
+		INF_CONFIRM_DATE,
+		FACT_CLOSE_DATE,
+		TTL_DELQ_5,
+		TTL_DELQ_5_29,
+		TTL_DELQ_30_59,
+		TTL_DELQ_60_89,
+		TTL_DELQ_30,
+		TTL_DELQ_90_PLUS,
+		PMT_FREQ,
+		CREDIT_LIMIT,
+		DELQ_BALANCE,
+		MAX_PAYMENT,
+		MAX_DELQ_BALANCE,
+		IS_OWN,
+		CURRENT_DELQ,
+		PMT_STRING_START,
+		EST_NEXT_PMT,
+		INTEREST_RATE,
+		LAST_PAYMENT_DATE,
+		CURR_BALANCE_AMT,
+		EST_CURR_BALANCE_AMT,
+		DISPUTE_FLAG,
+		COLLATERAL_CODE,
+		CREDIT_COST_RATE,
+		BUSINESS_CATEGORY,
+		LOAN_ID,
+		EXTENSION,
+		INFO_SOURCES,
+		NATURALPERSONID,
+		PRINCIPAL_OUTSTANDING,
+		PRINCIPAL_PAST_DUE,
+		INT_OUTSTANDING,
+		INT_PAST_DUE,
+		OTHER_OUTSTANDING,
+		OTHER_PAST_DUE,
+		TTL_DELQ_7,
+		TTL_DELQ_8_29,
+		UUID
+		)
+
+		values (
+
+		#{rtdmid, jdbcType=NUMERIC},
+		#{creid,
+		jdbcType=NUMERIC},
+		#{req.account, jdbcType=VARCHAR},
+		#{req.currency,
+		jdbcType=VARCHAR},
+		#{req.relationship, jdbcType=VARCHAR},
+		#{req.opendate, javaType=java.lang.String,
+		jdbcType=TIMESTAMP
+		,typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+		#{req.finalpmtdate,
+		javaType=java.lang.String,
+		jdbcType=TIMESTAMP
+		,typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+		#{type, jdbcType=VARCHAR},
+		#{req.pmtstring84M, jdbcType=VARCHAR},
+		#{req.curtobaselimit,
+		jdbcType=NUMERIC},
+		#{status, jdbcType=VARCHAR},
+		#{req.outstanding,
+		jdbcType=NUMERIC},
+		#{req.nextpmt, jdbcType=NUMERIC},
+		#{req.infconfirmdate, javaType=java.lang.String,
+		jdbcType=TIMESTAMP,
+		typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+		#{req.factclosedate,
+		javaType=java.lang.String,
+		jdbcType=TIMESTAMP
+		,typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+		#{req.ttldelq5, jdbcType=NUMERIC},
+		#{req.ttldelq529, jdbcType=NUMERIC},
+		#{req.ttldelq3059,
+		jdbcType=NUMERIC},
+		#{req.ttldelq6089, jdbcType=NUMERIC},
+		#{req.ttldelq30, jdbcType=NUMERIC},
+		#{req.ttldelq90PLUS,
+		jdbcType=NUMERIC},
+		#{req.pmtfreq, jdbcType=VARCHAR},
+		#{req.creditlimit,
+		jdbcType=NUMERIC},
+		#{req.delqbalance, jdbcType=NUMERIC},
+		#{req.maxpayment, jdbcType=NUMERIC},
+		#{req.maxdelqbalance,
+		jdbcType=NUMERIC},
+		#{req.isown, jdbcType=NUMERIC},
+		#{req.currentdelq, jdbcType=VARCHAR},
+		#{req.pmtstringstart, javaType=java.lang.String,
+		jdbcType=TIMESTAMP , typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+		#{req.estnextpmt, jdbcType=NUMERIC},
+		#{req.interestrate,
+		jdbcType=NUMERIC},
+		#{req.lastpaymentdate, javaType=java.lang.String,
+		jdbcType=TIMESTAMP , typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+		#{req.currbalanceamt, jdbcType=NUMERIC},
+		#{req.estcurrbalanceamt,
+		jdbcType=NUMERIC},
+		#{req.disputeflag, jdbcType=VARCHAR},
+		#{req.collateralcode, jdbcType=VARCHAR},
+		#{req.creditcostrate,
+		jdbcType=NUMERIC},
+		#{req.businesscategory,
+		jdbcType=NUMERIC},
+		#{loanid,jdbcType=NUMERIC},
+		#{extension, jdbcType=VARCHAR},
+		#{infosources, jdbcType=VARCHAR},
+		#{applicantid, jdbcType=VARCHAR},
+		#{req.principaloutstanding,jdbcType=NUMERIC},
+		#{req.principalpastdue,jdbcType=NUMERIC},
+		#{req.intoutstanding,jdbcType=NUMERIC},
+		#{req.intpastdue,jdbcType=NUMERIC},
+		#{req.otheroutstanding,jdbcType=NUMERIC},
+		#{req.otherpastdue,jdbcType=NUMERIC},
+		#{req.ttldelq7,jdbcType=NUMERIC},
+		#{req.ttldelq829,jdbcType=NUMERIC},
+		#{req.uuid, jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<insert id="insertInquiry" parameterType="Map">
+		insert into
+		cre_inquiry(
+		INQ_PERIOD,
+		INQ_PURPOSE,
+		INQ_AMT,
+		INQ_CURRENCY,
+		RTDMID,
+		CRE_ID,
+		INQUIRY_ID,
+		INQ_QTY,
+		INQ_OWN,
+		EXTENSION,
+		INFO_SOURCES,
+		NATURALPERSONID
+		)
+
+		values(#{req.inqperiod,jdbcType=VARCHAR},
+		#{req.inqpurpose,jdbcType=VARCHAR},
+		#{req.inqamt,jdbcType=NUMERIC},
+		#{req.inqcurrency,jdbcType=VARCHAR},
+		#{rtdmid},
+		#{creid},
+		#{inquiryid,jdbcType=NUMERIC},
+		#{req.inqqty,jdbcType=NUMERIC},
+		#{req.inqown,jdbcType=NUMERIC},
+		#{extension, jdbcType=VARCHAR},
+		#{infosources, jdbcType=VARCHAR},
+		#{applicantid, jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<insert id="insertLegal" parameterType="map">
+		insert into CRE_LEGAL (
+		RTDMID,
+		CRE_ID,
+		CLAIMNUMBER,
+		COURTNAME,
+		JUDGMENTDATE,
+		PLAINTIFF,
+		RESOLUTION,
+		SATISFIEDDATE,
+		LEGAL_ID,
+		EXTENSION,
+		INFO_SOURCES,
+		NATURALPERSONID,
+		CREDIT_ID,
+		RESOLUTION_NUMBER, 
+		RESOLUTION_TYPE,
+		RECOVERY_AMOUNT, 
+		RECOVERY_CURRENCY,
+		FIRST_UPDATE,
+		LAST_UPDATE, 
+		REPORT_DATE
+		)
+
+		values (
+		#{rtdmid},
+		#{creid},
+		#{
+		req.claimnumber,jdbcType=VARCHAR},
+		#{ req.courtname,jdbcType=VARCHAR},
+		#{
+		req.judgmentdate, javaType=java.lang.String,
+		jdbcType=TIMESTAMP ,
+		typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+		#{ req.plaintiff,jdbcType=VARCHAR},
+		#{
+		req.resolution,jdbcType=VARCHAR},
+		#{ req.satisfieddate,
+		javaType=java.lang.String,
+		jdbcType=TIMESTAMP ,
+		typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+		#{legalid, jdbcType=NUMERIC},
+		#{extension, jdbcType=VARCHAR},
+		#{infosources, jdbcType=VARCHAR},
+		#{applicantid, jdbcType=VARCHAR},
+		#{req.creditid, jdbcType=VARCHAR},
+    	#{req.resolutionnumber, jdbcType=VARCHAR},
+    	#{req.resolutiontype, jdbcType=NUMERIC},
+    	#{req.recoveryamount, jdbcType=NUMERIC},
+    	#{req.recoverycurrency, jdbcType=VARCHAR},
+    	#{req.firstupdate, javaType=java.lang.String, 
+    	jdbcType=TIMESTAMP, 
+    	typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+    	#{req.lastupdate, javaType=java.lang.String, 
+    	jdbcType=TIMESTAMP, 
+    	typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+    	#{req.reportdate, javaType=java.lang.String, 
+    	jdbcType=TIMESTAMP, 
+    	typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler}
+		)
+	</insert>
+
+	<insert id="insertBankruptcy" parameterType="map">
+		insert into
+		CRE_Bankruptcy (
+		RTDMID,
+		CRE_ID,
+		CASENUMBER,
+		COURTNAME,
+		JUDGMENTDATE,
+		PLAINTIFF,
+		RESOLUTION,
+		STATUS,
+		BANKRUPTCY_ID,
+		EXTENSION,
+		INFO_SOURCES,
+		NATURALPERSONID
+		)
+
+		values (
+		#{rtdmid},
+		#{creid},
+		#{
+		req.casenumber,jdbcType=VARCHAR},
+		#{ req.courtname,jdbcType=VARCHAR},
+		#{ req.judgmentdate,
+		javaType=java.lang.String,
+		jdbcType=TIMESTAMP ,
+		typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+		#{ req.plaintiff,jdbcType=VARCHAR},
+		#{ req.resolution,jdbcType=VARCHAR},
+		#{ req.status,jdbcType=NUMERIC},
+		#{bankid,jdbcType=NUMERIC},
+		#{extension, jdbcType=VARCHAR},
+		#{infosources, jdbcType=VARCHAR},
+		#{applicantid, jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<insert id="insertOfficial" parameterType="map">
+		insert into
+		CRE_Official (
+		RTDMID,
+		CRE_ID,
+		INFORMATION,
+		OFFICIALSOURCE,
+		OFFICIAL_ID,
+		EXTENSION,
+		INFO_SOURCES,
+		NATURALPERSONID
+		)
+
+		values (
+		#{rtdmid,
+		jdbcType=NUMERIC},
+		#{creid, jdbcType=NUMERIC},
+		
+
+		#{ req.information, jdbcType=VARCHAR},
+		#{
+		req.officialsource, jdbcType=VARCHAR},
+		#{offid,jdbcType=NUMERIC},
+		#{extension, jdbcType=VARCHAR},
+		#{infosources, jdbcType=VARCHAR},
+		#{applicantid, jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<insert id="insertScore" parameterType="map">
+		insert into CRE_SCORE
+		(
+		RTDMID,
+		CRE_ID,
+		CARD_ID,
+		ERROR,
+		ERROR_CODE,
+		SCORE_VALUE,
+		SCORE_ID,
+		EXTENSION,
+		INFO_SOURCES,
+		NATURALPERSONID
+		)
+
+		values
+		(
+		#{rtdmid,
+		jdbcType=NUMERIC},#{creid, jdbcType=NUMERIC},
+		#{req.cardid,
+		jdbcType=VARCHAR},
+		#{req.error, jdbcType=VARCHAR},
+		#{req.errorcode,
+		jdbcType=NUMERIC},
+		#{req.scorevalue, javaType=String, jdbcType=NUMERIC, typeHandler=ru.akbars.integro.dao.CustomTypeHandler},
+		#{scoreid,jdbcType=NUMERIC},
+		#{extension, jdbcType=VARCHAR},
+		#{infosources, jdbcType=VARCHAR},
+		#{applicantid, jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<insert id="insertBusiness" parameterType="map">
+		insert into CRE_BUSINESS
+		(
+		RTDMID,
+		CRE_ID,
+		OGRN,
+		INN,
+		FULL_NAME,
+		SHORT_NAME,
+		FIRM_NAME,
+		FOREIGN_NAME,
+		ADDON_RF_NAME,
+		PREVIOUS_NAME,
+		RESIDENT_FLAG,
+		REG_COUNTRY,
+		BUSINESS_STATUS,
+		BUSINESS_STATUS_DATE,
+		PARENT_COMPANY,
+		BUSINESS_ID,
+		EXTENSION,
+		INFO_SOURCES,
+		NATURALPERSONID
+		)
+
+		values
+		(
+		#{rtdmid,jdbcType=NUMERIC},
+		#{creid, jdbcType=NUMERIC},
+		#{req.ogrn,jdbcType=VARCHAR},
+		#{req.inn, jdbcType=VARCHAR},
+		#{req.fullname,jdbcType=VARCHAR},
+		#{req.shortname, jdbcType=VARCHAR},
+		#{req.firmname,jdbcType=VARCHAR},
+		#{req.foreignname, jdbcType=VARCHAR},
+		#{req.addonrfname,jdbcType=VARCHAR},
+		#{req.previousname, jdbcType=VARCHAR},
+		#{req.residentflag, jdbcType=NUMERIC},
+		#{req.regcountry, jdbcType=VARCHAR},
+		#{req.businessstatus,jdbcType=NUMERIC},
+		#{req.businessstatusdate, jdbcType=VARCHAR},
+		#{req.parentcompany, jdbcType=VARCHAR},
+		#{businessid,jdbcType=NUMERIC},
+		#{extension, jdbcType=VARCHAR},
+		#{infosources, jdbcType=VARCHAR},
+		#{applicantid, jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<insert id="insertMD" parameterType="map">
+		insert into CRE_MONTHLY_DETAIL
+		(
+		RTDMID,
+		CRE_ID,
+		HISTORY_DATE,
+		STATUS,
+		WORST_STATUS,
+		PMT_PAT,
+		WORST_PMT_PAT,
+		DELQ_BALANCE,
+		MAX_DELQ_BALANCE,
+		NEXT_PMT,
+		MAX_NEXT_PMT,
+		OUTSTANDING,
+		CREDIT_LIMIT,
+		BALANCE_AMT,
+		MD_ID,
+		EXTENSION,
+		INFO_SOURCES,
+		NATURALPERSONID,
+		LOAN_ID
+		)
+
+		values
+		(
+		#{rtdmid,jdbcType=NUMERIC},
+		#{creid, jdbcType=NUMERIC},
+		#{req.historydate,
+		javaType=java.lang.String,
+		jdbcType=TIMESTAMP,
+		typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+		#{req.status, jdbcType=VARCHAR},
+		#{req.worststatus,jdbcType=VARCHAR},
+		#{req.pmtpat, jdbcType=VARCHAR},
+		#{req.worstpmtpat,jdbcType=VARCHAR},
+		#{req.delqbalance, jdbcType=NUMERIC},
+		#{req.maxdelqbalance,jdbcType=NUMERIC},
+		#{req.nextpmt, jdbcType=NUMERIC},
+		#{req.maxnextpmt, jdbcType=NUMERIC},
+		#{req.outstanding, jdbcType=NUMERIC},
+		#{req.creditlimit,jdbcType=NUMERIC},
+		#{req.balanceamt, jdbcType=NUMERIC},
+		#{mdid,jdbcType=NUMERIC},
+		#{extension, jdbcType=VARCHAR},
+		#{infosources, jdbcType=VARCHAR},
+		#{applicantid, jdbcType=VARCHAR},
+		#{loanid,jdbcType=NUMERIC}
+		)
+	</insert>
+	
+	<insert id="insertPay" parameterType="map">
+		insert into CRE_PAYMENT
+		(
+		RTDMID,
+		NATURALPERSONID,
+		CRE_ID,
+		PAYMENT_DATE,
+		PAYMENT_AMOUNT,
+		PAYMENT_AMOUNT_EXC30D_PAST_DUE,
+		PAYMENT_AMOUNT_12M_PAST_DUE,
+		PAYMENT_VOLUME,
+		CURRENCY,
+		EXTENSION,
+		INFO_SOURCES,
+		PAYMENTID,
+		LOAN_ID
+		)
+
+		values(
+		#{rtdmid,jdbcType=NUMERIC},
+		#{applicantid, jdbcType=VARCHAR},
+		#{creid, jdbcType=NUMERIC},
+		#{req.paymentdate,javaType=java.lang.String,jdbcType=TIMESTAMP,	typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},		
+		#{req.paymentamount, jdbcType=NUMERIC},
+		#{req.paymentamountexc30dpastdue,jdbcType=NUMERIC},
+		#{req.paymentamount12mexc30dpastdue, jdbcType=NUMERIC},
+		#{req.paymentvolume, jdbcType=NUMERIC},
+		#{req.currency,jdbcType=VARCHAR},
+		#{extension, jdbcType=VARCHAR},
+		#{infosources, jdbcType=VARCHAR},
+		#{payid,jdbcType=NUMERIC},
+		#{loanid,jdbcType=NUMERIC}
+		)
+	</insert>
+	
+	
+	<insert id="insertAmend" parameterType="map">
+		insert into CRE_AMENDMENT
+		(
+		RTDMID,
+		NATURALPERSONID,
+		CRE_ID,
+		AMEND_TYPE,
+		LAST_UPDATED_DATE,
+		CREDIT_LIMIT,
+		NEXT_PMT,
+		CURRENCY,
+		CLOSED_DATE,
+		PAYMENT_DUE_DATE,
+		INTEREST_PAYMENT_DUE_DATE,
+		CREDIT_COST_RATE,
+		INF_CONFIRM_DATE,
+		REQUEST_REASON,
+		START_DATE,
+		PLAN_END_DATE,
+		FACT_END_DATE,
+		PERIOD_TYPE,
+		REASON_FOR_TERMINATION,
+		INFO_SOURCES,
+		EXTENSION,
+		AMENDMENTID,
+		LOANID
+		)
+
+		values(
+		#{rtdmid,jdbcType=NUMERIC},
+		#{applicantid, jdbcType=VARCHAR},
+		#{creid, jdbcType=NUMERIC},
+		#{req.amendmenttype,jdbcType=VARCHAR},		
+		#{req.lastupdatedate, javaType=java.lang.String,jdbcType=TIMESTAMP,	typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+		#{req.creditlimit,jdbcType=NUMERIC},
+		#{req.nextpmt, jdbcType=NUMERIC},
+		#{req.currency, jdbcType=VARCHAR},
+		#{req.closeddate,javaType=java.lang.String,jdbcType=TIMESTAMP,	typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+		#{req.paymentduedate,javaType=java.lang.String,jdbcType=TIMESTAMP,	typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+		#{req.interestpaymentduedate, javaType=java.lang.String,jdbcType=TIMESTAMP,	typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+		#{req.creditcostrate, jdbcType=NUMERIC},
+		#{req.infconfirmdate,javaType=java.lang.String,jdbcType=TIMESTAMP,	typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+		#{req.requestreason, jdbcType=NUMERIC},
+		#{req.startdate,javaType=java.lang.String,jdbcType=TIMESTAMP,	typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+		#{req.planenddate, javaType=java.lang.String,jdbcType=TIMESTAMP,	typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+		#{req.factenddate,javaType=java.lang.String,jdbcType=TIMESTAMP,	typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+		#{req.periodtype, jdbcType=NUMERIC},
+		#{req.reasonfortermination,jdbcType=NUMERIC},
+		#{infosources, jdbcType=VARCHAR},
+		#{extension, jdbcType=VARCHAR},
+		#{amendid,jdbcType=NUMERIC},
+		#{loanid,jdbcType=NUMERIC}
+		)
+	</insert>
+
+
+	<insert id="insertLoanLegal" parameterType="map">
+		insert into CRE_LEGAL (
+		RTDMID,
+		CRE_ID,
+		CLAIMNUMBER,
+		COURTNAME,
+		JUDGMENTDATE,
+		PLAINTIFF,
+		RESOLUTION,
+		SATISFIEDDATE,
+		LEGAL_ID,
+		EXTENSION,
+		INFO_SOURCES,
+		NATURALPERSONID,
+		CREDIT_ID,
+		RESOLUTION_NUMBER, 
+		RESOLUTION_TYPE,
+		RECOVERY_AMOUNT, 
+		RECOVERY_CURRENCY,
+		FIRST_UPDATE,
+		LAST_UPDATE, 
+		REPORT_DATE,
+		LOAN_ID
+		)
+
+		values (
+		#{rtdmid},
+		#{creid},
+		#{
+		req.claimnumber,jdbcType=VARCHAR},
+		#{ req.courtname,jdbcType=VARCHAR},
+		#{
+		req.judgmentdate, javaType=java.lang.String,
+		jdbcType=TIMESTAMP ,
+		typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+		#{ req.plaintiff,jdbcType=VARCHAR},
+		#{
+		req.resolution,jdbcType=VARCHAR},
+		#{ req.satisfieddate,
+		javaType=java.lang.String,
+		jdbcType=TIMESTAMP ,
+		typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+		#{legalid, jdbcType=NUMERIC},
+		#{extension, jdbcType=VARCHAR},
+		#{infosources, jdbcType=VARCHAR},
+		#{applicantid, jdbcType=VARCHAR},
+		#{req.creditid, jdbcType=VARCHAR},
+    	#{req.resolutionnumber, jdbcType=VARCHAR},
+    	#{req.resolutiontype, jdbcType=NUMERIC},
+    	#{req.recoveryamount, jdbcType=NUMERIC},
+    	#{req.recoverycurrency, jdbcType=VARCHAR},
+    	#{req.firstupdate, javaType=java.lang.String, 
+    	jdbcType=TIMESTAMP, 
+    	typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+    	#{req.lastupdate, javaType=java.lang.String, 
+    	jdbcType=TIMESTAMP, 
+    	typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+    	#{req.reportdate, javaType=java.lang.String, 
+    	jdbcType=TIMESTAMP, 
+    	typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+		#{loanid,jdbcType=NUMERIC}
+		)
+	</insert>
+
+	<insert id="insertBankGuarantee" parameterType="map">
+		insert into CRE_BANKGUARANTEE (
+		RTDMID,
+		CRE_ID,
+		ID, 
+		BANK_NAME, 
+		CREDITOR_TYPE, 
+		IS_OWN,
+		PURPOSE,
+		AMOUNT_COVERED, 
+		AMOUNT_COVERED_CURRENCY,  
+		AMOUNT,
+		AMOUNT_CURRENCY, 
+		START_DATE, 
+		FINISHED_DATE, 
+		PLANNED_FINISHED_DATE, 
+		CLOSURE_INFORMATION, 
+		COVERAGE_FLAG,
+		EXTENSION, 
+		INFO_SOURCES,
+		NATURALPERSONID, 			
+		LOAN_ID
+		)
+
+		values (
+		#{rtdmid},
+		#{creid},
+		#{req.id, jdbcType=VARCHAR},
+    	#{req.bankname, jdbcType=VARCHAR},
+    	#{req.creditortype, jdbcType=NUMERIC},
+    	#{req.isown, jdbcType=NUMERIC},
+    	#{req.purpose, jdbcType=NUMERIC},
+    	#{req.amountcovered, jdbcType=NUMERIC},
+    	#{req.amountcoveredcurrency, jdbcType=VARCHAR},
+    	#{req.amount, jdbcType=NUMERIC},
+    	#{req.amountcurrency, jdbcType=VARCHAR},
+    	#{req.startdate, javaType=java.lang.String, 
+    	jdbcType=TIMESTAMP, 
+    	typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler}, 
+    	#{req.finisheddate, javaType=java.lang.String, 
+    	jdbcType=TIMESTAMP, 
+    	typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler}, 
+    	#{req.plannedfinisheddate, javaType=java.lang.String, 
+    	jdbcType=TIMESTAMP, 
+    	typeHandler=ru.akbars.integro.dao.CustomDateTypeHandler},
+    	#{req.closureinformation, jdbcType=VARCHAR},
+    	#{req.coverageflag, jdbcType=NUMERIC},		
+		#{extension, jdbcType=VARCHAR},
+		#{infosources, jdbcType=VARCHAR},
+		#{applicantid, jdbcType=VARCHAR},
+		#{loanid, jdbcType=NUMERIC}
+		)
+	</insert>
+
+	<insert id="insertServicesWork" parameterType="map">
+		insert into RTDM_SERVICES_WORK
+		(
+		 rtdmid,
+		 naturalpersonid,
+		 service_name,
+		 response
+		 )
+		 VALUES
+		(
+		 #{rtdmId},
+		 #{naturalPersonId},
+		 #{serviceName},
+		 #{response}
+		)
+	</insert>
+	
+</mapper>
